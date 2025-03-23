@@ -99,13 +99,13 @@ const ProductCard = ({
             </span>
           )}
           
-          <Link to={`/products/${id}`}>
+          <Link to="/cart">
             <AnimatedButton
               variant="primary"
               size="sm"
               icon={<ShoppingCart size={16} />}
             >
-              Detalhes
+              Carrinho
             </AnimatedButton>
           </Link>
         </div>

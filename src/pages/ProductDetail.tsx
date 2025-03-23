@@ -4,9 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProductCard from "@/components/ProductCard";
-import { ArrowLeft, Check, ShoppingCart, Mail, ExternalLink, ChevronRight } from "lucide-react";
+import { ArrowLeft, Check, ShoppingCart, Mail, ChevronRight } from "lucide-react";
 
-// Mock data - in a real app, this would come from an API
 const mockProducts = [
   {
     id: "1",
@@ -56,7 +55,6 @@ const mockProducts = [
       "https://images.unsplash.com/photo-1551884831-bbf3cdc6469e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1287&q=80"
     ]
   },
-  // ... other products would be here
 ];
 
 const ProductDetail = () => {
@@ -68,7 +66,6 @@ const ProductDetail = () => {
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   
   useEffect(() => {
-    // In a real app, this would be an API call
     const fetchProduct = () => {
       setLoading(true);
       const foundProduct = mockProducts.find(p => p.id === id);
@@ -77,7 +74,6 @@ const ProductDetail = () => {
         setProduct(foundProduct);
         setSelectedImage(foundProduct.image);
         
-        // Find related products (same category)
         const related = mockProducts
           .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
           .slice(0, 4);
@@ -119,7 +115,6 @@ const ProductDetail = () => {
     <div className="page-transition">
       <Navbar />
       
-      {/* Breadcrumbs */}
       <div className="bg-corpus-silver/10 pt-32 pb-4">
         <div className="container mx-auto px-4">
           <div className="flex items-center text-sm text-corpus-text-dark/60">
@@ -142,10 +137,8 @@ const ProductDetail = () => {
         </div>
       </div>
       
-      {/* Product Detail */}
       <section className="section-container py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
           <div>
             <div className="bg-white rounded-xl overflow-hidden mb-4 aspect-square">
               <img 
@@ -155,7 +148,6 @@ const ProductDetail = () => {
               />
             </div>
             
-            {/* Thumbnail Gallery */}
             {product.additionalImages && (
               <div className="grid grid-cols-4 gap-2">
                 <div 
@@ -190,7 +182,6 @@ const ProductDetail = () => {
             )}
           </div>
           
-          {/* Product Info */}
           <div>
             <span className="inline-block text-sm text-corpus-blue uppercase tracking-wider mb-2">
               {product.category}
@@ -217,7 +208,6 @@ const ProductDetail = () => {
               {product.description}
             </p>
             
-            {/* Key Features */}
             <div className="mb-8">
               <h3 className="font-semibold text-corpus-text-dark mb-3">Especificações:</h3>
               <div className="space-y-2">
@@ -233,16 +223,15 @@ const ProductDetail = () => {
               </div>
             </div>
             
-            {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link to="/contact">
+              <Link to="/cart">
                 <AnimatedButton
                   variant="primary"
                   size="lg"
                   icon={<ShoppingCart size={20} />}
                   iconPosition="left"
                 >
-                  Solicitar Orçamento
+                  Adicionar ao Carrinho
                 </AnimatedButton>
               </Link>
               
@@ -258,7 +247,6 @@ const ProductDetail = () => {
               </a>
             </div>
             
-            {/* Additional Info */}
             <div className="bg-corpus-silver/10 p-6 rounded-lg">
               <div className="flex items-center text-corpus-text-dark/80 mb-2">
                 <Check size={18} className="text-corpus-blue mr-2" />
@@ -276,7 +264,6 @@ const ProductDetail = () => {
           </div>
         </div>
         
-        {/* Tabs Section */}
         <div className="mt-16">
           <div className="border-b border-gray-200">
             <div className="flex overflow-x-auto scrollbar-hide">
@@ -327,7 +314,6 @@ const ProductDetail = () => {
         </div>
       </section>
       
-      {/* Related Products */}
       {relatedProducts.length > 0 && (
         <section className="section-container py-12 bg-corpus-silver/10">
           <h2 className="section-title">Produtos Relacionados</h2>
@@ -340,7 +326,6 @@ const ProductDetail = () => {
         </section>
       )}
       
-      {/* Back to Products */}
       <div className="section-container py-12">
         <Link to="/products" className="inline-flex items-center text-corpus-blue hover:text-corpus-blue-dark transition-colors">
           <ArrowLeft size={20} className="mr-2" />
