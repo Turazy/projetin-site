@@ -5,7 +5,7 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedButton from "@/components/AnimatedButton";
-import { ArrowRight, Flask, Award, TrendingUp, HeartHandshake } from "lucide-react";
+import { ArrowRight, Beaker, Award, TrendingUp, HeartHandshake } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -115,7 +115,7 @@ const Index = () => {
             <div className="space-y-4 pt-4">
               {[
                 {
-                  icon: <Flask size={24} className="text-corpus-blue" />,
+                  icon: <Beaker size={24} className="text-corpus-blue" />,
                   title: "Produtos de Qualidade",
                   description: "Fornecemos apenas produtos que atendem aos mais altos padrões de qualidade."
                 },
