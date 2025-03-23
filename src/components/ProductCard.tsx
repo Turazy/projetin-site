@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Eye } from 'lucide-react';
 import AnimatedButton from './AnimatedButton';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   id: string;
@@ -26,6 +27,19 @@ const ProductCard = ({
   isFeatured = false 
 }: ProductCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { toast } = useToast();
+  
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Here you would typically add the product to the cart state
+    // For now we'll just show a toast notification
+    toast({
+      title: "Produto adicionado",
+      description: `${name} foi adicionado ao seu carrinho`,
+      duration: 3000,
+    });
+  };
   
   return (
     <div 
@@ -99,15 +113,15 @@ const ProductCard = ({
             </span>
           )}
           
-          <Link to="/cart">
+          <button onClick={handleAddToCart}>
             <AnimatedButton
               variant="primary"
               size="sm"
               icon={<ShoppingCart size={16} />}
             >
-              Carrinho
+              Adicionar
             </AnimatedButton>
-          </Link>
+          </button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import AnimatedButton from "@/components/AnimatedButton";
 import ProductCard from "@/components/ProductCard";
 import { ArrowLeft, Check, ShoppingCart, Mail, ChevronRight } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const mockProducts = [
   {
@@ -64,6 +65,7 @@ const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState("description");
   const [selectedImage, setSelectedImage] = useState("");
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
+  const { toast } = useToast();
   
   useEffect(() => {
     const fetchProduct = () => {
@@ -86,6 +88,16 @@ const ProductDetail = () => {
     fetchProduct();
     window.scrollTo(0, 0);
   }, [id]);
+  
+  const handleAddToCart = () => {
+    if (product) {
+      toast({
+        title: "Produto adicionado",
+        description: `${product.name} foi adicionado ao seu carrinho`,
+        duration: 3000,
+      });
+    }
+  };
   
   if (loading) {
     return (
@@ -224,7 +236,7 @@ const ProductDetail = () => {
             </div>
             
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link to="/cart">
+              <button onClick={handleAddToCart}>
                 <AnimatedButton
                   variant="primary"
                   size="lg"
@@ -233,7 +245,7 @@ const ProductDetail = () => {
                 >
                   Adicionar ao Carrinho
                 </AnimatedButton>
-              </Link>
+              </button>
               
               <a href="mailto:contato@corpuscomercio.com.br?subject=Consulta sobre produto: Microscópio Digital Binocular">
                 <AnimatedButton
