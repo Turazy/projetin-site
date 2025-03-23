@@ -7,6 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const location = useLocation();
   
   // Handle scroll effect
@@ -112,15 +113,34 @@ const Navbar = () => {
           ))}
           
           <Link 
-            to="/contact" 
-            className="bg-corpus-blue text-white px-6 py-2 rounded-md hover:bg-corpus-blue-dark transition-colors shadow-sm hover:shadow"
+            to="/cart" 
+            className="relative flex items-center justify-center text-corpus-text-dark hover:text-corpus-blue transition-colors"
+            aria-label="Shopping Cart"
           >
-            Orçamento
+            <ShoppingCart size={24} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-corpus-blue text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </nav>
         
         {/* Mobile Navigation Toggle */}
         <div className="flex items-center lg:hidden">
+          <Link 
+            to="/cart" 
+            className="relative mr-4 text-corpus-text-dark hover:text-corpus-blue transition-colors"
+            aria-label="Shopping Cart"
+          >
+            <ShoppingCart size={22} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-corpus-blue text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+          
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="text-corpus-text-dark p-2"
@@ -182,10 +202,11 @@ const Navbar = () => {
           
           <div className="mt-8">
             <Link 
-              to="/contact" 
-              className="w-full block text-center bg-corpus-blue text-white px-6 py-3 rounded-md hover:bg-corpus-blue-dark transition-colors"
+              to="/cart" 
+              className="w-full flex items-center justify-center bg-corpus-blue text-white px-6 py-3 rounded-md hover:bg-corpus-blue-dark transition-colors"
             >
-              Solicitar Orçamento
+              <ShoppingCart size={20} className="mr-2" />
+              <span>Ver Carrinho</span>
             </Link>
           </div>
         </nav>
