@@ -17,7 +17,7 @@ interface RelatedProductsProps {
 }
 
 const RelatedProducts = ({ products }: RelatedProductsProps) => {
-  if (products.length === 0) return null;
+  if (!products || products.length === 0) return null;
 
   return (
     <section className="section-container py-12 bg-corpus-silver/10">

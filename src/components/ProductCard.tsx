@@ -32,13 +32,43 @@ const ProductCard = ({
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     
-    // Here you would typically add the product to the cart state
-    // For now we'll just show a toast notification
-    toast({
-      title: "Produto adicionado",
-      description: `${name} foi adicionado ao seu carrinho`,
-      duration: 3000,
-    });
+    // Get current cart from localStorage
+    try {
+      const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+      
+      // Check if product is already in cart
+      const existingItemIndex = currentCart.findIndex((item: any) => item.id === id);
+      
+      if (existingItemIndex >= 0) {
+        // Increment quantity if product already exists
+        currentCart[existingItemIndex].quantity += 1;
+      } else {
+        // Add new product to cart
+        currentCart.push({
+          id,
+          name,
+          price,
+          image,
+          quantity: 1
+        });
+      }
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(currentCart));
+      
+      toast({
+        title: "Produto adicionado",
+        description: `${name} foi adicionado ao seu carrinho`,
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast({
+        title: "Erro",
+        description: "Ocorreu um erro ao adicionar o produto ao carrinho",
+        duration: 3000,
+      });
+    }
   };
   
   return (

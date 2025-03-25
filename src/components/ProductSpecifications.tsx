@@ -11,11 +11,13 @@ interface ProductSpecificationsProps {
 }
 
 const ProductSpecifications = ({ specs }: ProductSpecificationsProps) => {
+  if (!specs || specs.length === 0) return null;
+  
   return (
     <div className="mb-8">
       <h3 className="font-semibold text-corpus-text-dark mb-3">Especificações:</h3>
       <div className="space-y-2">
-        {specs?.map((spec, index) => (
+        {specs.map((spec, index) => (
           <div key={index} className="flex items-start">
             <Check size={18} className="text-corpus-blue mr-2 mt-0.5 flex-shrink-0" />
             <div>

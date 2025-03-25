@@ -10,6 +10,7 @@ interface ProductDetailsProps {
     name: string;
     description: string;
     price: number | null;
+    image: string; // Added image property
     category: string;
     specs?: Array<{ name: string; value: string }>;
   };
@@ -19,11 +20,43 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { toast } = useToast();
 
   const handleAddToCart = () => {
-    toast({
-      title: "Produto adicionado",
-      description: `${product.name} foi adicionado ao seu carrinho`,
-      duration: 3000,
-    });
+    // Get current cart from localStorage
+    try {
+      const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+      
+      // Check if product is already in cart
+      const existingItemIndex = currentCart.findIndex((item: any) => item.id === product.id);
+      
+      if (existingItemIndex >= 0) {
+        // Increment quantity if product already exists
+        currentCart[existingItemIndex].quantity += 1;
+      } else {
+        // Add new product to cart
+        currentCart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        });
+      }
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(currentCart));
+      
+      toast({
+        title: "Produto adicionado",
+        description: `${product.name} foi adicionado ao seu carrinho`,
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast({
+        title: "Erro",
+        description: "Ocorreu um erro ao adicionar o produto ao carrinho",
+        duration: 3000,
+      });
+    }
   };
 
   return (
